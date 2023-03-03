@@ -1,0 +1,16 @@
+#Create BUdget(file paths should be the relative path from the command is executed)
+aws budgets create-budget \
+    --account-id $AWS_ACCOUNT_ID \
+    --budget file://aws/json/budget.json \
+    --notifications-with-subscribers file://aws/json/notifications-with-subscribers.json
+
+#Topic Alarm
+aws sns create-topic --name billing-alarm
+
+#Adding Subscription
+aws sns subscribe \
+    --topic-arn="arn:aws:sns:us-east-1:960309040659:billing-alarm" \
+    --protocol email \
+    --notification-endpoint marvinomar08@gmail.com
+#Create Alarm
+aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm-config.json

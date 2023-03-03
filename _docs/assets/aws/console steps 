@@ -1,0 +1,4 @@
+#Adding account_id to env
+export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+gp env AWS_ACCOUNT_ID="960309040659"
+
